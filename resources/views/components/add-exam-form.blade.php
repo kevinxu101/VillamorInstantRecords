@@ -5,9 +5,8 @@
 
         <div class="col-md-6">
             <select id="term" class="form-control" name="term">
-               <option value="1">@lang('1st Term')</option>
-               <option value="2">@lang('2nd Term')</option>
-               <option value="3">@lang('3rd Term')</option>
+               <option value="first_quarter">1st Quarter</option>
+               <option value="second_quarter">2nd Quarter</option>
             </select>
 
             @if ($errors->has('term'))

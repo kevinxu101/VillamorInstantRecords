@@ -92,6 +92,7 @@ class GradeController extends Controller
     }
 
     public function calculateMarks(CalculateMarksRequest $request){
+
       $gradeSystem = $this->gradeService->getGradeSystemByname($request->grade_system_name);
 
       $this->gradeService->course_id = $request->course_id;
@@ -100,14 +101,14 @@ class GradeController extends Controller
       $grades = $this->gradeService->getGradesByCourseExam($request->course_id, $request->exam_id)->toArray();
 
       $tbc = $this->gradeService->calculateGpaFromTotalMarks($grades, $course, $gradeSystem);
+      
 
-      $this->gradeService->saveCalculatedGPAFromTotalMarks($tbc);
 
       $this->gradeService->course_id = $request->course_id;
       $this->gradeService->exam_id = $request->exam_id;
       $this->gradeService->teacher_id = $request->teacher_id;
       $this->gradeService->section_id = $request->section_id;
-      
+     
       return $this->gradeService->returnRouteWithParameters('teacher-grade');
     }
 
@@ -163,12 +164,18 @@ class GradeController extends Controller
      */
     public function update(Request $request)
     {
-      $tbc = $this->gradeService->updateGrade($request);
+
+      $this->gradeService->course_id = $request->course_id;
+      $course = $this->gradeService->getCourseByCourseId();
+
+      $grades = $this->gradeService->getGradesByCourseExam($request->course_id, $request->exam_id)->toArray();
+      $tbc = $this->gradeService->updateGrade($request,$course,$grades);
       try{
           if(count($tbc) > 0)
             \Batch::update('grades', (array) $tbc,'id');
         }catch(\Exception $e){
-            return __("Ops, an error occured");
+            //return __("Ops, an error occured");
+            return back()->with('status', __('Error Not Saved!'));
         }
 
       return back()->with('status', __('Saved'));

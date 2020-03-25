@@ -16,6 +16,7 @@
           <th scope="col">Quarterly Assessment(25%)</th>
         @endfor
       <th scope="col">@lang('Initial Grade')</th>
+      <th scope="col">Quarterly Grade</th>
   
     </tr>
   </thead>
@@ -38,7 +39,8 @@
 
 
       <td>{{$grade->marks}}</td>
-   
+      <td>{{$grade->marks_final}}</td>
+
     </tr>
     @endforeach
   </tbody>

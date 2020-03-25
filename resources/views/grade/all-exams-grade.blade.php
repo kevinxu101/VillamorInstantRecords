@@ -17,7 +17,7 @@
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
-                    @endif
+                    @endif  
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     @foreach($classes as $class)
                         <div class="panel panel-default">

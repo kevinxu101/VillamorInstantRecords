@@ -22,6 +22,16 @@ class CreateGradesTable extends Migration
             $table->float('quiz1', 8, 2);
             $table->float('ct1', 8, 2);
             $table->float('assignment1', 8, 2);
+
+            $table->float('marks_2Q', 8, 2);//final exam
+            $table->float('marks_final_2Q',8,2);
+            $table->float('attendance_2Q', 8, 2);
+            $table->float('quiz1_2Q', 8, 2);
+            $table->float('ct1_2Q', 8, 2);
+            $table->float('assignment1_2Q', 8, 2);
+
+            $table->float('final_semester_grades',8,2);
+            
             $table->integer('exam_id')->unsigned();
             $table->integer('student_id')->unsigned();
             $table->integer('teacher_id')->unsigned();

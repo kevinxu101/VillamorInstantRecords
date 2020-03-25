@@ -116,15 +116,15 @@ class ExamController extends Controller
      */
     private function assignCoursesToExam()
     {
-    //   $request->validate([
-    //     'course_id' => 'required|numeric',
-    //     'exam_id' => 'required|numeric',
-    //   ]);
+     $request->validate([
+        'course_id' => 'required|numeric',
+      'exam_id' => 'required|numeric',
+    ]);
         
-        // $tb = Course::find($request->course_id);
-        // $tb->exam_id = $request->exam_id;
-        // $tb->save();
-        // return back()->with('status', 'Saved');
+        $tb = Course::find($request->course_id);
+        $tb->exam_id = $request->exam_id;
+         $tb->save();
+         return back()->with('status', 'Saved');
     }
 
     /**

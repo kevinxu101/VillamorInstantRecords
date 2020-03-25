@@ -40,8 +40,6 @@ class GradeService {
   public $field_percentage;
   public $avg_field_sum;
   public $final_default_value;
-
-  public $marks_final;
   // Calculation marks ends
 
   public function isLoggedInUserStudent(){
@@ -128,18 +126,19 @@ class GradeService {
                 ->get();
   }
 
-  public function calculateGpaFromTotalMarks($grades, $course, $gradeSystem){
-    foreach($grades as $key => $grade){
-        $totalMarks = $this->calculateMarks($course, $grade);
-        // Calculate GPA from Total marks
-        $gpa = $this->calculateGpa($gradeSystem, $totalMarks);
-        $tb = Grade::find($grade['id']);
-        $tb->marks = $totalMarks;
-        $tb->gpa = $gpa;
-        $tbc[] = $tb->attributesToArray();
-    }
-    return $tbc;
-  }
+  public function calculateGpaFromTotalMarks($grades, $course){
+    foreach($grades as $key => $grade){ 
+      // Calculate GPA from Total marks
+      $tb = Grade::find($grade['id']);
+      $totalMarks = $this->calculateMarks($course, $grade);
+      $quarterly_grade = $this->getQuarterlyGrade($totalMarks,$course);
+      $tb->marks = $totalMarks;
+      $tb->marks_final = $quarterly_grade;
+      $tbc[] = $tb->attributesToArray();
+      return $tbc;
+}
+
+}
 
   public function getActiveExamIds(){
     return Exam::where('school_id', auth()->user()->school_id)
@@ -185,7 +184,8 @@ class GradeService {
 
     public function calculateMarks($course, $grade){
         $this->grade = $grade;
-
+        
+        $quarterly_grade = 0;
         $this->quizCount = 1;
         $this->assignmentCount = 1;
         $this->ctCount = 1;
@@ -206,46 +206,216 @@ class GradeService {
         $this->maxFieldNum = 1;
         $this->ctSum = $this->getMarkSum();
         
-        // Percentage related calculation
-        // Attendance
-        $this->full_field_mark = $course->att_fullmark;
-        $this->field_percentage = 0;
-        $this->avg_field_sum = $this->grade['attendance'];
-        $this->final_default_value = $this->grade['attendance'];
-        $this->final_att_mark = $this->getFieldFinalMark();
-        // Quiz
-        $this->full_field_mark = $course->quiz_fullmark;
-        $this->field_percentage = 25;
-        $this->avg_field_sum = $this->quizCount > 0 ? $this->quizSum/$this->quizCount : 0;
-        $this->final_default_value = $this->quizSum;
-        $this->final_quiz_mark = $this->getFieldFinalMark();
-        // Assignment
-        $this->full_field_mark = $course->a_fullmark;
-        $this->field_percentage = 50;
-        $this->avg_field_sum = $this->assignmentCount > 0 ? $this->assignmentSum/$this->assignmentCount : 0;
-        $this->final_default_value = $this->assignmentSum;
-        $this->final_assignment_mark = $this->getFieldFinalMark();
-        // Class Test
-        $this->full_field_mark = $course->ct_fullmark;
-        $this->field_percentage = 25;
-        $this->avg_field_sum = $this->ctCount > 0 ? $this->ctSum/$this->ctCount : 0;
-        $this->final_default_value = $this->ctSum;
-        $this->final_ct_mark = $this->getFieldFinalMark();
-     
         
-        // Calculate total marks
-        $totalMarks = $this->getTotalCalculatedMarks();
-        $marks_final = $this->roundedGetTotalCalculatedMarks();
-        return $marks_final;
+              // Percentage related calculation
+              // Attendance
+              $this->full_field_mark = $course->att_fullmark;
+              $this->field_percentage = 0;
+              $this->avg_field_sum = $this->grade['attendance'];
+              $this->final_default_value = $this->grade['attendance'];
+              $this->final_att_mark = $this->getFieldFinalMark();
+              // Quiz
+              $this->full_field_mark = $course->quiz_fullmark;
+              $this->field_percentage = 25;
+              $this->avg_field_sum = $this->quizCount > 0 ? $this->quizSum/$this->quizCount : 0;
+              $this->final_default_value = $this->quizSum;
+              $this->final_quiz_mark = $this->getFieldFinalMark();
+              // Assignment
+              $this->full_field_mark = $course->a_fullmark;
+              $this->field_percentage = 50;
+              $this->avg_field_sum = $this->assignmentCount > 0 ? $this->assignmentSum/$this->assignmentCount : 0;
+              $this->final_default_value = $this->assignmentSum;
+              $this->final_assignment_mark = $this->getFieldFinalMark();
+              // Class Test
+              $this->full_field_mark = $course->ct_fullmark;
+              $this->field_percentage = 25;
+              $this->avg_field_sum = $this->ctCount > 0 ? $this->ctSum/$this->ctCount : 0;
+              $this->final_default_value = $this->ctSum;
+              $this->final_ct_mark = $this->getFieldFinalMark();
+
+              $totalMarks = $this->getTotalCalculatedMarks();
+            
+              return $totalMarks;
     }
 
-    public function getMarkSum(){
+    public function getQuarterlyGrade($totalMarks,$course){
+        $this->track = $course->course_type;
+        //fuck u sa next batch kayo mag aayos nito
+        
+          if($totalMarks <= 3.99){
+            return $quarterly_grade = 60;
+          }
+          else if($totalMarks >= 4.00 && $totalMarks <= 7.99)
+          {
+            return $quarterly_grade = 61;
+          }
+          else if($totalMarks >= 8.00 && $totalMarks <= 11.99)
+          {
+            return $quarterly_grade = 62;
+          }
+          else if($totalMarks >= 12.00 && $totalMarks <= 15.99)
+          {
+            return $quarterly_grade = 63;
+          }
+          else if($totalMarks >= 16.00 && $totalMarks <= 19.99)
+          {
+            return $quarterly_grade = 64;
+          }
+          else if($totalMarks >= 20.00 && $totalMarks <= 23.99)
+          {
+            return $quarterly_grade = 65;
+          }
+          else if($totalMarks >= 24.00 && $totalMarks <= 27.99)
+          {
+            return $quarterly_grade = 66;
+          }
+          else if($totalMarks >= 28.00 && $totalMarks <= 31.99)
+          {
+            return $quarterly_grade = 67;
+          }
+          else if($totalMarks >= 32.00 && $totalMarks <= 35.99)
+          {
+            return $quarterly_grade = 68;
+          }
+          else if($totalMarks >= 36.00 && $totalMarks <= 39.99)
+          {
+            return $quarterly_grade = 69;
+          }
+          else if($totalMarks >= 40.00 && $totalMarks <= 43.99)
+          {
+            return $quarterly_grade = 70;
+          }
+          else if($totalMarks >= 44.00 && $totalMarks <= 47.99)
+          {
+            return $quarterly_grade = 71;
+          }
+          else if($totalMarks >= 48.00 && $totalMarks <= 51.99)
+          {
+            return $quarterly_grade = 72;
+          }
+          else if($totalMarks >= 52.00 && $totalMarks <= 55.99)
+          {
+            return $quarterly_grade = 73;
+          }
+          else if($totalMarks >= 56.00 && $totalMarks <= 59.99)
+          {
+            return $quarterly_grade = 74;
+          }
+          else if($totalMarks >= 60.00 && $totalMarks <= 61.59)
+          {
+            return $quarterly_grade = 75;
+          }
+          else if($totalMarks >= 61.60 && $totalMarks <= 63.19)
+          {
+            return $quarterly_grade = 76;
+          }
+          else if($totalMarks >= 63.20 && $totalMarks <= 64.79)
+          {
+            return $quarterly_grade = 77;
+          }
+          else if($totalMarks >= 64.80 && $totalMarks <= 66.39)
+          {
+            return $quarterly_grade = 78;
+          }
+          else if($totalMarks >= 66.40 && $totalMarks <= 67.99)
+          {
+            return $quarterly_grade = 79;
+          }
+          else if($totalMarks >= 68.00 && $totalMarks <= 69.59)
+          {
+            return $quarterly_grade = 80;
+          }
+          else if($totalMarks >= 69.60 && $totalMarks <= 71.19)
+          {
+            return $quarterly_grade = 81;
+          }
+          else if($totalMarks >= 71.20 && $totalMarks <= 72.79)
+          {
+            return $quarterly_grade = 82;
+          }
+          else if($totalMarks >= 72.80 && $totalMarks <= 74.39)
+          {
+            return $quarterly_grade = 83;
+          }
+          else if($totalMarks >= 74.40 && $totalMarks <= 75.59)
+          {
+            return $quarterly_grade = 84;
+          }
+          else if($totalMarks >= 76.00 && $totalMarks <= 77.59)
+          {
+            return $quarterly_grade = 85;
+          }
+          else if($totalMarks >= 77.60 && $totalMarks <= 79.19)
+          {
+            return $quarterly_grade = 86;
+          }
+          else if($totalMarks >= 79.20 && $totalMarks <= 80.79)
+          {
+            return $quarterly_grade = 87;
+          }
+          else if($totalMarks >= 80.80 && $totalMarks <= 82.39)
+          {
+            return $quarterly_grade = 88;
+          }
+          else if($totalMarks >= 82.40 && $totalMarks <= 83.99)
+          {
+            return $quarterly_grade = 89;
+          }
+          else if($totalMarks >= 84.00 && $totalMarks <= 85.59)
+          {
+            return $quarterly_grade = 90;
+          }
+          else if($totalMarks >= 85.60 && $totalMarks <= 87.19)
+          {
+            return $quarterly_grade = 91;
+          }
+          else if($totalMarks >= 87.20 && $totalMarks <= 88.79)
+          {
+            return $quarterly_grade = 92;
+          }
+          else if($totalMarks >= 88.80 && $totalMarks <= 90.39)
+          {
+            return $quarterly_grade = 93;
+          }
+          else if($totalMarks >= 90.40 && $totalMarks <= 91.99)
+          {
+            return $quarterly_grade = 94;
+          }
+          else if($totalMarks >= 92.00 && $totalMarks <= 93.59)
+          {
+            return $quarterly_grade = 95;
+          }
+          else if($totalMarks >= 93.60 && $totalMarks <= 95.19)
+          {
+            return $quarterly_grade = 96;
+          }
+          else if($totalMarks >= 95.20 && $totalMarks <= 96.79)
+          {
+            return $quarterly_grade = 97;
+          }
+          else if($totalMarks >= 96.80 && $totalMarks <= 98.39)
+          {
+            return $quarterly_grade = 98;
+          }
+          else if($totalMarks >= 98.40 && $totalMarks <= 99.99)
+          {
+            return $quarterly_grade = 99;
+          }
+          else if($totalMarks = 100)
+          {
+            return $quarterly_grade = 100;
+          }
+  
+      }
+
+     
+   
+   
+      public function getMarkSum(){
       $fieldSum = 0;
-      //If the number of selected tasks are not 0, execute if logic
       if($this->fieldCount > 0){
           $fieldGradeArray = array();
           for($i=1; $i<=$this->maxFieldNum; ++$i){
-            //Add the grades of the student tasks into an an array
             array_push($fieldGradeArray,$this->grade["{$this->field}{$i}"]);
           }
           rsort($fieldGradeArray);
@@ -264,28 +434,12 @@ class GradeService {
     }
 
     public function getFieldFinalMark(){
-      return ($this->full_field_mark > 0)? (($this->avg_field_sum/$this->full_field_mark)*$this->field_percentage) : $this->final_default_value;
+      return ($this->full_field_mark > 0)? (($this->field_percentage*$this->avg_field_sum)/$this->full_field_mark) : $this->final_default_value;
     }
-    public function roundedGetTotalCalculatedMarks(){
- 
-
-      return round($this->final_quiz_mark + $this->final_assignment_mark + $this->final_ct_mark);
       
-    }
     public function getTotalCalculatedMarks(){
-      /*
-      return round(
-        (round($this->final_att_mark, 8, 2)+
-        round($this->final_quiz_mark, 8, 2)+
-        round($this->final_assignment_mark, 8, 2)+
-        round($this->final_ct_mark, 8, 2)+
-        round($this->final_finalExam_mark, 8, 2)+
-        round($this->final_practical_mark, 8, 2)
-      ), 8, 2);
-      */
+        return $this->final_quiz_mark + $this->final_assignment_mark + $this->final_ct_mark;
 
-      return $this->final_quiz_mark + $this->final_assignment_mark + $this->final_ct_mark;
-      
     }
 
     public function calculateGpa($gradeSystem, $totalMarks){
@@ -298,15 +452,24 @@ class GradeService {
       return 'Something went wrong.';
     }
 
-    public function updateGrade($request){
+    public function updateGrade($request, $course){
         $i = 0;
+        $quiz_fullmark = $course->quiz_fullmark;
+        $a_fullmark = $course->a_fullmark;
+        $ct_fullmark = $course->ct_fullmark;
+        
         foreach($request->grade_ids as $id){
+          $totalMarks = ((($request->quiz1[$i]/$quiz_fullmark) * 25) + (($request->assign1[$i]/$a_fullmark) *50) +  (($request->ct1[$i]/$ct_fullmark) *25));
+          $quarterly_grade = $this->getQuarterlyGrade($totalMarks,$course);
+
             $tb = Grade::find($id);
             $tb->attendance = $request->attendance[$i];
             $tb->quiz1 = $request->quiz1[$i];
             $tb->assignment1 = $request->assign1[$i];
             $tb->ct1 = $request->ct1[$i];
+            $tb->marks = ((($request->quiz1[$i]/$quiz_fullmark) * 25) + (($request->assign1[$i]/$a_fullmark) *50) +  (($request->ct1[$i]/$ct_fullmark) *25));
             $tb->user_id = Auth::user()->id;
+            $tb->marks_final = $quarterly_grade;
             $tb->created_at = date('Y-m-d H:i:s');
             $tb->updated_at = date('Y-m-d H:i:s');
             $tbc[] = $tb->attributesToArray();

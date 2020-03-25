@@ -96,7 +96,17 @@ class ExamService {
         $tb = Exam::find($this->request->exam_id);
         $tb->notice_published = isset($this->request->notice_published)?1:0;
         $tb->result_published = isset($this->request->result_published)?1:0;
-        $tb->active = (isset($this->request->active))?1:0;
+        if(isset($this->request->active)){
+            $tb->active = 1;
+            Course::where('exam_id',0)->update([
+                'exam_id' => $this->request->exam_id
+            ]);
+        }else{
+            Course::where('exam_id',$this->request->exam_id)->update([
+                'exam_id' => 0
+            ]);
+            $tb->active = 0;
+        }
         $tb->save();
     }
 

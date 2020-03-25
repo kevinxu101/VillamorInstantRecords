@@ -52,9 +52,11 @@
           <label for="course_type{{$section->id}}" class="col-sm-2 control-label">@lang('Course Type')</label>
           <div class="col-sm-10">
             <select class="form-control" id="course_type{{$section->id}}" name="course_type">
-              <option value="core">@lang('Core')</option>
-              <option value="elective">@lang('Elective')</option>
-              <option value="optional">@lang('Optional')</option>
+              <option value="core_subject">Core Subject (All Tracks)</option>
+              <option value="academic_track">Academic Track (except Immersion)</option>
+              <option value="workImmersion_CulminatingActivity">Work Immersion/ Culminating Activity (for Academic Track)</option>
+              <option value="tvl">TVL/ Sports/ Arts and Design Track</option>
+
             </select>
           </div>
         </div>

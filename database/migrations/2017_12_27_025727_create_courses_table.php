@@ -23,16 +23,31 @@ class CreateCoursesTable extends Migration
             $table->integer('quiz_count');
             $table->integer('assignment_count');
             $table->integer('ct_count');
-            $table->integer('quiz_percent');
+
+
             $table->integer('attendance_percent');
+            $table->integer('quiz_percent');
             $table->integer('assignment_percent');
             $table->integer('ct_percent');
+
+            $table->integer('quiz_percent_2Q');
+            $table->integer('assignment_percent_2Q');
+            $table->integer('ct_percent_2Q');
+
             $table->integer('final_exam_percent');
             $table->integer('practical_percent');
+
             $table->integer('att_fullmark');
+
             $table->integer('quiz_fullmark');
             $table->integer('a_fullmark');
             $table->integer('ct_fullmark');
+
+            $table->integer('quiz_fullmark_2Q');
+            $table->integer('a_fullmark_2Q');
+            $table->integer('ct_fullmark_2Q');
+
+
             $table->integer('final_fullmark');
             $table->integer('practical_fullmark');
             $table->integer('school_id')->unsigned();
