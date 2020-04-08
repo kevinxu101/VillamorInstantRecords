@@ -35,11 +35,7 @@
                                 <div class="card-header">@lang('Teachers') - <b>{{$totalTeachers}}</b></div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="card text-white bg-dark mb-3">
-                                <div class="card-header">@lang('Types of Books In Library') - <b>{{$totalBooks}}</b></div>
-                            </div>
-                        </div>
+
                         <div class="col-sm-2">
                             <div class="card text-white bg-danger mb-3">
                                 <div class="card-header">@lang('Classes') - <b>{{$totalClasses}}</b></div>

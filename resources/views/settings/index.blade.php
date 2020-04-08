@@ -64,7 +64,7 @@
                                     </td>
                                     <td>
                                         <a href="#collapse" role="button" class="btn btn-danger btn-sm" data-toggle="collapse" aria-expanded="false" aria-controls="collapse">
-                                            <i class="material-icons">class</i> @lang('Manage Class, Section')
+                                            <i class="material-icons">class</i> Manage Room,Class,Sections
                                         </a>
                                     </td>
                                 </tr>
@@ -132,8 +132,7 @@
                                 <tr>
                                     <th scope="col">+@lang('Student')</th>
                                     <th scope="col">+@lang('Teacher')</th>
-                                    <th scope="col">+@lang('Accountant')</th>
-                                    <th scope="col">+@lang('Librarian')</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -152,12 +151,7 @@
                                         @component('components.excel-upload-form', ['type'=>'teacher'])
                                         @endcomponent
                                     </td>
-                                    <td>
-                                        <a class="btn btn-default btn-sm" href="{{url('register/accountant')}}">+ @lang('Add Accountant')</a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-warning btn-sm" href="{{url('register/librarian')}}">+ @lang('Add Librarian')</a>
-                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>

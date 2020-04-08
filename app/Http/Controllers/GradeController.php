@@ -165,11 +165,18 @@ class GradeController extends Controller
     public function update(Request $request)
     {
 
+      $this->gradeService->exam_id = $request->exam_id;
       $this->gradeService->course_id = $request->course_id;
-      $course = $this->gradeService->getCourseByCourseId();
+      $this->gradeService->section_id = $request->section_id;
 
-      $grades = $this->gradeService->getGradesByCourseExam($request->course_id, $request->exam_id)->toArray();
-      $tbc = $this->gradeService->updateGrade($request,$course,$grades);
+      $course = $this->gradeService->getCourseByCourseId();
+      //try to get my course type
+      $examIds = $this->gradeService->getActiveExamIds()->toArray();
+      $course_type = $this->gradeService->getCourseType($examIds);
+      $this->gradeService->section_id = $request->section_id;
+
+      $tbc = $this->gradeService->updateGrade($request,$course,$course_type);
+      
       try{
           if(count($tbc) > 0)
             \Batch::update('grades', (array) $tbc,'id');

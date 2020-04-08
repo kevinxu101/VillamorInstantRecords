@@ -23,6 +23,7 @@ class UsersTableSeeder extends Seeder
 
        
         factory(User::class, 1)->states('teacher')->create();
-    
+        factory(User::class, 1)->states('admin')->create();
+
     }
 }

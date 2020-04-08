@@ -9,7 +9,7 @@
             @include('layouts.leftside-menubar')
         </div>
         <div class="col-md-10" id="main-container">
-            <h2>@lang('Edit Course Data')</h2>
+            <h2>@lang('Edit Subject Data')</h2>
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
@@ -19,7 +19,7 @@
                 <form class="form-horizontal" action="{{url('edit/course/'.$course->id)}}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group{{ $errors->has('course_name') ? ' has-error' : '' }}">
-                        <label for="course_name" class="col-md-4 control-label">@lang('Course Name')</label>
+                        <label for="course_name" class="col-md-4 control-label">@lang('Subject Name')</label>
 
                         <div class="col-md-6">
                             <input id="course_name" type="text" class="form-control" name="course_name" value="{{ $course->course_name }}" required>

@@ -173,6 +173,7 @@ class GradeService {
     return Course::find($this->course_id);
   }
 
+  
   public function saveCalculatedGPAFromTotalMarks($tbc){
     try{
       if(count($tbc) > 0)
@@ -238,8 +239,8 @@ class GradeService {
               return $totalMarks;
     }
 
-    public function getQuarterlyGrade($totalMarks,$course){
-        $this->track = $course->course_type;
+    public function getQuarterlyGrade($totalMarks){
+
         //fuck u sa next batch kayo mag aayos nito
         
           if($totalMarks <= 3.99){
@@ -452,14 +453,38 @@ class GradeService {
       return 'Something went wrong.';
     }
 
-    public function updateGrade($request, $course){
+    public function getTerm(){
+      return Exam::where('school_id', auth()->user()->school_id)
+                          ->where('term', 'second_term')
+                          ->get();
+    }
+
+    public function getCourseType($exam_id){
+      return Course::where('exam_id', $exam_id)
+                    ->pluck('course_type');
+    }
+
+    public function updateGrade($request, $course,$course_type){
         $i = 0;
+        $course_type =  $course->course_type;
         $quiz_fullmark = $course->quiz_fullmark;
         $a_fullmark = $course->a_fullmark;
         $ct_fullmark = $course->ct_fullmark;
         
         foreach($request->grade_ids as $id){
-          $totalMarks = ((($request->quiz1[$i]/$quiz_fullmark) * 25) + (($request->assign1[$i]/$a_fullmark) *50) +  (($request->ct1[$i]/$ct_fullmark) *25));
+          if($course_type == 'Core Subject'){
+            $totalMarks = ((($request->quiz1[$i]/$quiz_fullmark) * 25) + (($request->assign1[$i]/$a_fullmark) *50) +  (($request->ct1[$i]/$ct_fullmark) *25));
+          }
+          if($course_type == 'Academic Track'){
+            $totalMarks = ((($request->quiz1[$i]/$quiz_fullmark) * 25) + (($request->assign1[$i]/$a_fullmark) *45) +  (($request->ct1[$i]/$ct_fullmark) *30));
+          }
+          if($course_type == 'Work Immersion/ Culminating Activity'){
+            $totalMarks = ((($request->quiz1[$i]/$quiz_fullmark) * 35) + (($request->assign1[$i]/$a_fullmark) *40) +  (($request->ct1[$i]/$ct_fullmark) *25));
+          }
+          if($course_type == 'TVL/ Sports/ Arts and Design Track'){
+            $totalMarks = ((($request->quiz1[$i]/$quiz_fullmark) * 20) + (($request->assign1[$i]/$a_fullmark) *60) +  (($request->ct1[$i]/$ct_fullmark) *20));
+          }
+
           $quarterly_grade = $this->getQuarterlyGrade($totalMarks,$course);
 
             $tb = Grade::find($id);
@@ -467,8 +492,9 @@ class GradeService {
             $tb->quiz1 = $request->quiz1[$i];
             $tb->assignment1 = $request->assign1[$i];
             $tb->ct1 = $request->ct1[$i];
-            $tb->marks = ((($request->quiz1[$i]/$quiz_fullmark) * 25) + (($request->assign1[$i]/$a_fullmark) *50) +  (($request->ct1[$i]/$ct_fullmark) *25));
+            $tb->marks = $totalMarks;
             $tb->user_id = Auth::user()->id;
+            $tb->marks_final = $totalMarks;
             $tb->marks_final = $quarterly_grade;
             $tb->created_at = date('Y-m-d H:i:s');
             $tb->updated_at = date('Y-m-d H:i:s');

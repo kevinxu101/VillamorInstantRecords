@@ -12,10 +12,10 @@
             <thead>
                 <tr>
                     <th>@lang('Class')</th>
-                    <th>@lang('Course Name')</th>
-                    <th>@lang('Course Type')</th>
-                    <th>@lang('Course Time')</th>
-                    <th>@lang('Course Teacher')</th>
+                    <th>@lang('Subject Name')</th>
+                    <th>@lang('Subject Track')</th>
+                    <th>@lang('Subject Time')</th>
+                    <th>@lang('Subject Teacher')</th>
                 </tr>
             </thead>
           <tbody>

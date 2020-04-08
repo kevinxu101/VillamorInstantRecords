@@ -84,7 +84,7 @@
     <tr id="heading{{($loop->index + 1)}}">
       <th scope="row">{{($loop->index + 1)}}</th>
       <td>{{$grade->course->course_name}}</td>
-      <td><b>{{$grade->marks}}</b>
+      <td><b>{{$grade->marks_final}}</b>
         <a class="btn btn-xs btn-danger pull-right" href="#collapse{{($loop->index + 1)}}" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapse{{($loop->index + 1)}}"> @lang('View Details')</a>
       </td>
       <td>
@@ -105,44 +105,28 @@
         <table class="table table-bordered table-condensed table-hover">
           <thead>
             <tr>
-              <th scope="col">@lang('Attendance')</th>
-              @for($i=1;$i<=5;$i++)
-                <th scope="col">@lang('Quiz') {{$i}}</th>
-              @endfor
-              @for($i=1;$i<=3;$i++)
-                <th scope="col">@lang('Assignment') {{$i}}</th>
-              @endfor
-              @for($i=1;$i<=5;$i++)
-                <th scope="col">@lang('CT') {{$i}}</th>
-              @endfor
-              @if($grade->course->final_exam_percent > 0)
-                <th scope="col">@lang('Written')</th>
-                <th scope="col">@lang('Mcq')</th>
-              @endif
-              @if($grade->course->practical_percent > 0)
-                <th scope="col">@lang('Practical')</th>
-              @endif
+                <th scope="col">@lang('Written Work Total')</th>
+                <th scope="col">@lang('Performance Tasks Total')</th>
+                <th scope="col">@lang('Assessment test Total')</th>
+                <th scope="col">Initial Grade</th>
+                <th scope="col">Quarterly Grade</th>
+              
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{{$grade->attendance}}</td>
-              @for($i=1;$i<=5;$i++)
+
+              @for($i=1;$i<=1;$i++)
                 <td>{{$grade['quiz'.$i]}}</td>
               @endfor
-              @for($i=1;$i<=3;$i++)
+              @for($i=1;$i<=1;$i++)
                 <td>{{$grade['assignment'.$i]}}</td>
               @endfor
-              @for($i=1;$i<=5;$i++)
+              @for($i=1;$i<=1;$i++)
                 <td>{{$grade['ct'.$i]}}</td>
               @endfor
-              @if($grade->course->final_exam_percent > 0)
-                <td>{{$grade->written}}</td>
-                <td>{{$grade->mcq}}</td>
-              @endif
-              @if($grade->course->practical_percent > 0)
-                <td>{{$grade->practical}}</td>
-              @endif
+                <td>{{$grade->marks}}</td>
+                <td>{{$grade->marks_final}}</td>
             </tr>
           </tbody>
         </table>

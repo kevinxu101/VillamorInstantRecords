@@ -7,9 +7,9 @@
           <input type="hidden" name="class_id" value="{{$class->id}}"/>
           <input type="hidden" name="section_id" value="{{$section->id}}"/>
           <div class="form-group">
-            <label for="courseName{{$section->id}}" class="col-sm-2 control-label">@lang('Course Name')</label>
+            <label for="courseName{{$section->id}}" class="col-sm-2 control-label">@lang('Subject Name')</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="courseName{{$section->id}}" name="course_name" placeholder="@lang('Course Name')">
+              <input type="text" class="form-control" id="courseName{{$section->id}}" name="course_name" placeholder="@lang('Subject Name')">
             </div>
           </div>
           <div class="form-group">
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="assignTeacher{{$section->id}}" class="col-sm-2 control-label">@lang('Assign Course Teacher')</label>
+            <label for="assignTeacher{{$section->id}}" class="col-sm-2 control-label">@lang('Assign Subject Teacher')</label>
             <div class="col-sm-10">
               <select class="form-control" id="assignTeacher{{$section->id}}" name="teacher_id">
                 <option value="0" selected disabled>@lang('Select Department First')</option>
@@ -49,7 +49,7 @@
             </div>
           </div>
         <div class="form-group">
-          <label for="course_type{{$section->id}}" class="col-sm-2 control-label">@lang('Course Type')</label>
+          <label for="course_type{{$section->id}}" class="col-sm-2 control-label">@lang('Subject Track')</label>
           <div class="col-sm-10">
             <select class="form-control" id="course_type{{$section->id}}" name="course_type">
               <option value="core_subject">Core Subject (All Tracks)</option>
@@ -61,9 +61,9 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="courseTime{{$section->id}}" class="col-sm-2 control-label">@lang('Course Time')</label>
+          <label for="courseTime{{$section->id}}" class="col-sm-2 control-label">@lang('Subject Time')</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="courseTime{{$section->id}}" name="course_time" placeholder="@lang('Course Time')">
+            <input type="text" class="form-control" id="courseTime{{$section->id}}" name="course_time" placeholder="@lang('Subject Time')">
             <span id="helpBlock" class="help-block">@lang('Example: 12:50PM-01:40PM Sunday')</span>
           </div>
         </div>
