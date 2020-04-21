@@ -18,6 +18,7 @@
             @endif
             <h2>@lang('Marks and Grades History')</h2>
             <div class="panel panel-default">
+                
               @if(count($grades) > 0)
               @foreach ($grades as $grade)
                 <?php

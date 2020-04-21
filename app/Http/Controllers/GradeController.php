@@ -99,6 +99,7 @@ class GradeController extends Controller
       $course = $this->gradeService->getCourseByCourseId();
 
       $grades = $this->gradeService->getGradesByCourseExam($request->course_id, $request->exam_id)->toArray();
+      
 
       $tbc = $this->gradeService->calculateGpaFromTotalMarks($grades, $course, $gradeSystem);
       
@@ -170,12 +171,14 @@ class GradeController extends Controller
       $this->gradeService->section_id = $request->section_id;
 
       $course = $this->gradeService->getCourseByCourseId();
+      $exams = $this->gradeService->getExamByExamId();
+      $grades = $this->gradeService->getGradesByCourseExam($request->course_id, $request->exam_id)->toArray();
       //try to get my course type
       $examIds = $this->gradeService->getActiveExamIds()->toArray();
       $course_type = $this->gradeService->getCourseType($examIds);
       $this->gradeService->section_id = $request->section_id;
 
-      $tbc = $this->gradeService->updateGrade($request,$course,$course_type);
+      $tbc = $this->gradeService->updateGrade($request,$course,$course_type,$exams,$grades);
       
       try{
           if(count($tbc) > 0)

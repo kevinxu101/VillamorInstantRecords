@@ -21,37 +21,58 @@
           <th scope="col">@lang('Code')</th>
           <th scope="col">@lang('Name')</th>
           <th scope="col">@lang('Attendance')</th>
-          <th scope="col">@lang('Written Work') 1</th>
-          <th scope="col">@lang('Performance Tasks') 1</th>
-          <th scope="col">@lang('Quarterly Assessment') 1</th>
+          <th scope="col">@lang('Written Work Total Score')</th>
+          <th scope="col">@lang('Performance Tasks Total Score') </th>
+          <th scope="col">@lang('Quarterly Assessment Total Score') </th>
 
         </tr>
       </thead>
       <tbody>
+        
+        
         @foreach ($grades as $grade)
         <input type="hidden" name="grade_ids[]" value="{{$grade->id}}">
         <tr>
           <th scope="row">{{($loop->index + 1)}}</th>
           <td>{{$grade->student->student_code}}</td>
           <td>{{$grade->student->name}}</td>
-          <td>
-            <input type="number" name="attendance[]" class="form-control input-sm" placeholder="@lang('Total Attendance')" value="{{$grade->attendance}}"  max="100">
-          </td>
-          <td>
-            <input type="number" name="quiz1[]" class="form-control input-sm input-sm" value="{{$grade->quiz1}}"
-              placeholder="@lang('Written Work')" max="{{$grade->course->quiz_fullmark}}">
-          </td>
+          @if($grade->exam->term == 'first_quarter')
+            <td>
+              <input type="number" name="attendance[]" class="form-control input-sm" placeholder="@lang('Total Attendance')" value="{{$grade->attendance}}"  max="100">
+            </td>
+            <td>
+              <input type="number" name="quiz1[]" class="form-control input-sm input-sm" value="{{$grade->quiz1}}"
+                placeholder="@lang('Written Work')" max="{{$grade->course->quiz_fullmark}}">
+            </td>
 
-          <td>
-            <input type="number" name="assign1[]" class="form-control input-sm" placeholder="@lang('Performance Tasks')" value="{{$grade->assignment1}}" max="{{$grade->course->a_fullmark}}">
-          </td>
+            <td>
+              <input type="number" name="assign1[]" class="form-control input-sm" placeholder="@lang('Performance Tasks')" value="{{$grade->assignment1}}" max="{{$grade->course->a_fullmark}}">
+            </td>
 
-          <td>
-            <input type="number" name="ct1[]" class="form-control input-sm" placeholder="@lang('Quarterly Assessment')" value="{{$grade->ct1}}" max="{{$grade->course->ct_fullmark}}">
-          </td>
-s
+            <td>
+              <input type="number" name="ct1[]" class="form-control input-sm" placeholder="@lang('Quarterly Assessment')" value="{{$grade->ct1}}" max="{{$grade->course->ct_fullmark}}">
+            </td>
+          @endif
+          @if($grade->exam->term == 'second_quarter')
+            <td>
+              <input type="number" name="attendance[]" class="form-control input-sm" placeholder="@lang('Total Attendance')" value="{{$grade->attendance}}"  max="100">
+            </td>
+            <td>
+              <input type="number" name="quiz1[]" class="form-control input-sm input-sm" value="{{$grade->quiz1_2Q}}"
+                placeholder="@lang('Written Work')" max="{{$grade->course->quiz_fullmark}}">
+            </td>
+
+            <td>
+              <input type="number" name="assign1[]" class="form-control input-sm" placeholder="@lang('Performance Tasks')" value="{{$grade->assignment1_2Q}}" max="{{$grade->course->a_fullmark}}">
+            </td>
+
+            <td>
+              <input type="number" name="ct1[]" class="form-control input-sm" placeholder="@lang('Quarterly Assessment')" value="{{$grade->ct1_2Q}}" max="{{$grade->course->ct_fullmark}}">
+            </td>
+          @endif
         </tr>
         @endforeach
+        
       </tbody>
     </table>
   </div>

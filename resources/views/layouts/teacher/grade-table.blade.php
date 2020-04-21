@@ -21,26 +21,28 @@
     </tr>
   </thead>
   <tbody>
+    
     @foreach ($grades as $grade)
     <tr>
       <th scope="row">{{($loop->index + 1)}}</th>
       <td>{{$grade->student->student_code}}</td>
       <td><a href="{{url('user/'.$grade->student->student_code)}}">{{$grade->student->name}}</a></td>
-      <td>{{$grade->attendance}}</td>
-      @for($i=1;$i<=1;$i++)
-        <td>{{$grade['quiz'.$i]}}</td>
-      @endfor
-      @for($i=1;$i<=1;$i++)
-        <td>{{$grade['assignment'.$i]}}</td>
-      @endfor
-      @for($i=1;$i<=1;$i++)
-        <td>{{$grade['ct'.$i]}}</td>
-      @endfor
-
-
-      <td>{{$grade->marks}}</td>
-      <td>{{$grade->marks_final}}</td>
-
+      @if($grade->exam->term == 'first_quarter')
+        <td>{{$grade->attendance}}</td>
+        <td>{{$grade->quiz1}}</td>
+        <td>{{$grade->assignment1}}</td>
+        <td>{{$grade->ct1}}</td>
+        <td>{{$grade->marks}}</td>
+        <td>{{$grade->marks_final}}</td>
+      @endif
+      @if($grade->exam->term == 'second_quarter')
+        <td>{{$grade->attendance}}</td>
+        <td>{{$grade->quiz1_2Q}}</td>
+        <td>{{$grade->assignment1_2Q}}</td>
+        <td>{{$grade->ct1_2Q}}</td>
+        <td>{{$grade->marks_2Q}}</td>
+        <td>{{$grade->marks_final_2Q}}</td>
+        @endif
     </tr>
     @endforeach
   </tbody>

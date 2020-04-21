@@ -29,7 +29,7 @@
             <div class="panel panel-default" id="main-container">
               @if(count($grades) > 0)
               @foreach ($grades as $grade)
-                <div class="page-panel-title" style="font-size: 15px;"><b>@lang('Subject')</b> - {{$grade->course->course_name}} &nbsp; <b>@lang('Class')</b> - {{$grade->course->section->class->class_number}} &nbsp;<b>@lang('Section')</b> - {{$grade->course->section->section_number}} &nbsp;<b>@lang('Exam')</b> - {{$grade->exam->exam_name}}  <br/><b>@lang('Track')</b> - {{$grade->course->course_type}}
+                <div class="page-panel-title" style="font-size: 15px;"><b>@lang('Subject')</b> - {{$grade->course->course_name}} &nbsp; <b>@lang('Class')</b> - {{$grade->course->section->class->class_number}} &nbsp;<b>@lang('Section')</b> - {{$grade->course->section->section_number}} &nbsp;<b>@lang('Exam')</b> - {{$grade->exam->exam_name}}  <br/><b>@lang('Track')</b> - {{$grade->course->course_type}} <b>@lang('Track')</b> - {{$grade->exam->term}}
                   <button type="submit" class="btn btn-success btn-xs pull-right">
                     <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> @lang('Save')
                   </button>
