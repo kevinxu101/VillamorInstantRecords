@@ -16,7 +16,7 @@ class StudentsExport implements FromQuery,ShouldAutoSize,WithHeadings
         'Phone Number',
         'Gender',
         'Student Code',
-        'Blood Group',
+        //'Blood Group',
         'Section',
         'Class',
         'Address'
@@ -34,19 +34,19 @@ class StudentsExport implements FromQuery,ShouldAutoSize,WithHeadings
         'Dirección'
     ];
 
-    public function __construct(int $year){
+    public function __construct(int $year){ 
         $this->year = $year;
     }
     
     public function query()
     {
-        return User::query()->select('users.name','users.email','users.phone_number','users.gender','users.student_code','users.blood_group','sections.section_number','classes.class_number','users.address')
+        return User::query()->select('users.last_name','users.given_name','users.email','users.phone_number','users.gender','users.student_code','sections.section_number','classes.class_number','users.address')
                     ->where('users.school_id', auth()->user()->school_id)
                     ->where('users.role','student')
                     ->whereYear('users.created_at', $this->year)
                     ->join('sections','sections.id', '=', 'users.section_id')
                     ->join('classes','sections.class_id', '=', 'classes.id')
-                    ->orderBy('users.name');
+                    ->orderBy('users.last_name');
     }
 
     public function headings() : array

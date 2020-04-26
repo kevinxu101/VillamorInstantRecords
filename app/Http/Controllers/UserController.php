@@ -164,7 +164,7 @@ class UserController extends Controller
         }
         else {
             return view('profile.impersonate', [
-                'other_users' => $this->user->where('id', '!=', auth()->id())->get([ 'id', 'name', 'role' ])
+                'other_users' => $this->user->where('id', '!=', auth()->id())->get([ 'id','last_name', 'given_name' ,'role' ])
             ]);
         }
     }
@@ -335,12 +335,16 @@ class UserController extends Controller
 		 
         DB::transaction(function () use ($request) {
             $tb = $this->user->find($request->user_id);
-            $tb->name = $request->name;
+
+            $tb->last_name = $request->last_name;
+            $tb->given_name = $request->given_name;
+            $tb->middle_name = $request->middle_name;
+
             $tb->email = (!empty($request->email)) ? $request->email : '';
             $tb->nationality = (!empty($request->nationality)) ? $request->nationality : '';
             $tb->phone_number = $request->phone_number;
             $tb->address = (!empty($request->address)) ? $request->address : '';
-            $tb->about = (!empty($request->about)) ? $request->about : '';
+            //$tb->about = (!empty($request->about)) ? $request->about : '';
 			if (!empty($request->pic_path)) {
 				$tb->pic_path = $request->pic_path;
 			}

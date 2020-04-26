@@ -36,16 +36,46 @@
                     <form class="form-horizontal" method="POST" id="registerForm" action="{{ url('register/'.session('register_role')) }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">* @lang('Full Name')</label>
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <label for="last_name" class="col-md-4 control-label">* @lang('Last Name')</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}"
                                     required>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('last_name'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('name') }}</strong>
+                                    <strong>{{ $errors->first('last_name') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('given_name') ? ' has-error' : '' }}">
+                            <label for="given_name" class="col-md-4 control-label">* @lang('Given Name')</label>
+
+                            <div class="col-md-6">
+                                <input id="given_name" type="text" class="form-control" name="given_name" value="{{ old('given_name') }}"
+                                    required>
+
+                                @if ($errors->has('given_name'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('given_name') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('middle_name') ? ' has-error' : '' }}">
+                            <label for="middle_name" class="col-md-4 control-label">* @lang('Middle Name')</label>
+
+                            <div class="col-md-6">
+                                <input id="middle_name" type="text" class="form-control" name="middle_name" value="{{ old('middle_name') }}"
+                                    required>
+
+                                @if ($errors->has('middle_name'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('middle_name') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -120,7 +150,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+                        <!--<div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
                             <label for="birthday" class="col-md-4 control-label">* @lang('Birthday')</label>
 
                             <div class="col-md-6">
@@ -133,7 +163,7 @@
                                 </span>
                                 @endif
                             </div>
-                        </div>
+                        </div>-->
                         @endif
                         @if(session('register_role', 'teacher') == 'teacher')
                         <div class="form-group{{ $errors->has('department') ? ' has-error' : '' }}">
@@ -175,28 +205,6 @@
                             </div>
                         </div>
                         @endif
-                        <div class="form-group{{ $errors->has('blood_group') ? ' has-error' : '' }}">
-                            <label for="blood_group" class="col-md-4 control-label">@lang('Blood Group')</label>
-
-                            <div class="col-md-6">
-                                <select id="blood_group" class="form-control" name="blood_group">
-                                    <option selected="selected">A+</option>
-                                    <option>A-</option>
-                                    <option>B+</option>
-                                    <option>B-</option>
-                                    <option>AB+</option>
-                                    <option>AB-</option>
-                                    <option>O+</option>
-                                    <option>O-</option>
-                                </select>
-
-                                @if ($errors->has('blood_group'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('blood_group') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('nationality') ? ' has-error' : '' }}">
                             <label for="nationality" class="col-md-4 control-label">* @lang('Nationality')</label>
@@ -230,24 +238,7 @@
                             </div>
                         </div>
                         @if(session('register_role', 'student') == 'student')
-                        <div class="form-group{{ $errors->has('version') ? ' has-error' : '' }}">
-                            <label for="version" class="col-md-4 control-label">* @lang('Version')</label>
-
-                            <div class="col-md-6">
-                                <select id="version" class="form-control" name="version">
-                                    <option selected="selected">@lang('Bangla')</option>
-                                    <option>@lang('English')</option>
-									<option>@lang('Spanish')</option>
-                                </select>
-
-                                @if ($errors->has('version'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('version') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('session') ? ' has-error' : '' }}">
+                        <!--<div class="form-group{{ $errors->has('session') ? ' has-error' : '' }}">
                             <label for="session" class="col-md-4 control-label">* @lang('Session')</label>
 
                             <div class="col-md-6">
@@ -260,15 +251,22 @@
                                 </span>
                                 @endif
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group{{ $errors->has('group') ? ' has-error' : '' }}">
-                            <label for="group" class="col-md-4 control-label">@lang('Group (Optional)')</label>
+                            <label for="group" class="col-md-4 control-label">@lang('Do you belong to indigenous people?')</label>
 
                             <div class="col-md-6">
-                                <input id="group" type="text" class="form-control" name="group" value="{{ old('group') }}"
-                                    placeholder="@lang('Science, Arts, Commerce,etc.')">
 
+
+                                <label class="radio-inline"><input type="radio" id="rad" name="" value="" />Yes</label>
+
+                                   
+                                
+                                
+                                <label class="radio-inline"><input type="radio" name="group" value="None" />No</label>
+                                
+                        
                                 @if ($errors->has('group'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('group') }}</strong>
@@ -276,8 +274,123 @@
                                 @endif
                             </div>
                         </div>
+                        
+                        <div class="form-group{{ $errors->has('registration_status') ? ' has-error' : '' }}">
+                            <label for="registration_status" class="col-md-4 control-label">@lang('Registration Status')</label>
 
-                        <div class="form-group{{ $errors->has('religion') ? ' has-error' : '' }}">
+                            <div class="col-md-6">
+                                <select id="registration_status" class="form-control" name="registration_status">
+                                    <option selected="selected">@lang('')</option>
+                                    <option>@lang('Active')</option>
+                                    <option>@lang('Not-Active')</option>
+                                </select>
+
+                                @if ($errors->has('registration_status'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('registration_status') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('grade_level') ? ' has-error' : '' }}">
+                            <label for="grade_level" class="col-md-4 control-label">@lang('Grade Level')</label>
+
+                            <div class="col-md-6">
+                                <select id="grade_level" class="form-control" name="grade_level">
+                                    <option selected="selected">@lang('')</option>
+                                    <option>@lang('Grade 11')</option>
+                                    <option>@lang('Grade 12')</option>
+                                </select>
+
+                                @if ($errors->has('grade_level'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('grade_level') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('LRN') ? ' has-error' : '' }}">
+                            <label for="LRN" class="col-md-4 control-label">* @lang('Learners Reference Number')</label>
+
+                            <div class="col-md-6">
+                                <select id="LRN" class="form-control" name="LRN">
+                                    <option selected="selected">@lang('')</option>
+                                    <option>@lang('1')</option>
+                                    <option>@lang('2')</option>
+                                    <option>@lang('3')</option>
+									<option>@lang('4')</option>
+                                    <option>@lang('5')</option>
+                                </select>
+
+                                @if ($errors->has('LRN'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('LRN') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <!-- -------- -->
+                        <div class="form-group{{ $errors->has('requirements') ? ' has-error' : '' }}">
+                            <label for="requirements" class="col-md-4 control-label">* @lang('Requirements Checklist')</label>
+
+                            <div class="col-md-6">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="requirements" value="Sample Data1">Option 1</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="requirements" value="Sample Data2">Option 1</label>
+                                </div>
+
+                                @if ($errors->has('requirements'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('requirements') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <!-- -------- -->
+                        <div class="form-group{{ $errors->has('semester') ? ' has-error' : '' }}">
+                            <label for="semester" class="col-md-4 control-label">* @lang('Semester')</label>
+
+                            <div class="col-md-6">
+                                <select id="semester" class="form-control" name="semester">
+                                    <option selected="selected">@lang('')</option>
+                                    <option>@lang('1st Semester')</option>
+                                    <option>@lang('2nd Semester')</option>
+                                </select>
+
+                                @if ($errors->has('semester'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('semester') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('strand') ? ' has-error' : '' }}">
+                            <label for="strand" class="col-md-4 control-label">@lang('Strand')</label>
+
+                            <div class="col-md-6">
+                                <select id="strand" class="form-control" name="strand">
+                                    <option selected="selected">@lang('')</option>
+                                    <option>@lang('HUMSS')</option>
+                                    <option>@lang('STEM')</option>
+                                    <option>@lang('GAS')</option>
+									<option>@lang('ABM')</option>
+                                    
+                                </select>
+
+                                @if ($errors->has('strand'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('strand') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group{{ $errors->has('religion') ? ' has-error' : '' }}">
                             <label for="religion" class="col-md-4 control-label">@lang('Religion')</label>
 
                             <div class="col-md-6">
@@ -296,10 +409,10 @@
                                 </span>
                                 @endif
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                            <label for="address" class="col-md-4 control-label">* @lang('address')</label>
+                            <label for="address" class="col-md-4 control-label">* @lang('Address')</label>
 
                             <div class="col-md-6">
                                 <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}"
@@ -313,15 +426,46 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('about') ? ' has-error' : '' }}">
-                            <label for="about" class="col-md-4 control-label">@lang('About')</label>
+                        <div class="form-group{{ $errors->has('barangay') ? ' has-error' : '' }}">
+                            <label for="barangay" class="col-md-4 control-label">* @lang('Barangay')</label>
 
                             <div class="col-md-6">
-                                <textarea id="about" class="form-control" name="about">{{ old('about') }}</textarea>
+                                <input id="barangay" type="text" class="form-control" name="barangay" value="{{ old('barangay') }}"
+                                    required>
 
-                                @if ($errors->has('about'))
+                                @if ($errors->has('barangay'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('about') }}</strong>
+                                    <strong>{{ $errors->first('barangay') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+                            <label for="city" class="col-md-4 control-label">* @lang('City/Municipality')</label>
+
+                            <div class="col-md-6">
+                                <input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}"
+                                    required>
+
+                                @if ($errors->has('city'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('city') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('zipcode') ? ' has-error' : '' }}">
+                            <label for="zipcode" class="col-md-4 control-label">* @lang('Zipcode')</label>
+
+                            <div class="col-md-6">
+                                <input id="zipcode" type="text" class="form-control" name="zipcode" value="{{ old('zipcode') }}"
+                                    required>
+
+                                @if ($errors->has('zipcode'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('zipcode') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -357,83 +501,23 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('father_national_id') ? ' has-error' : '' }}">
-                            <label for="father_national_id" class="col-md-4 control-label">@lang('Father\'s National ID')</label>
+                        <div class="form-group{{ $errors->has('mother_maiden_name') ? ' has-error' : '' }}">
+                            <label for="mother_maiden_name" class="col-md-4 control-label">* @lang('Mother\'s Maiden Name')</label>
 
                             <div class="col-md-6">
-                                <input id="father_national_id" type="text" class="form-control" name="father_national_id"
-                                    value="{{ old('father_national_id') }}">
-
-                                @if ($errors->has('father_national_id'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('father_national_id') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('father_occupation') ? ' has-error' : '' }}">
-                            <label for="father_occupation" class="col-md-4 control-label">@lang('Father\'s Occupation')</label>
-
-                            <div class="col-md-6">
-                                <input id="father_occupation" type="text" class="form-control" name="father_occupation"
-                                    value="{{ old('father_occupation') }}">
-
-                                @if ($errors->has('father_occupation'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('father_occupation') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('father_designation') ? ' has-error' : '' }}">
-                            <label for="father_designation" class="col-md-4 control-label">@lang('Father\'s Designation')</label>
-
-                            <div class="col-md-6">
-                                <input id="father_designation" type="text" class="form-control" name="father_designation"
-                                    value="{{ old('father_designation') }}">
-
-                                @if ($errors->has('father_designation'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('father_designation') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('father_annual_income') ? ' has-error' : '' }}">
-                            <label for="father_annual_income" class="col-md-4 control-label">@lang('Father\'s Annual Income')</label>
-
-                            <div class="col-md-6">
-                                <input id="father_annual_income" type="text" class="form-control" name="father_annual_income"
-                                    value="{{ old('father_annual_income') }}">
-
-                                @if ($errors->has('father_annual_income'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('father_annual_income') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('mother_name') ? ' has-error' : '' }}">
-                            <label for="mother_name" class="col-md-4 control-label">* @lang('Mother\'s Name')</label>
-
-                            <div class="col-md-6">
-                                <input id="mother_name" type="text" class="form-control" name="mother_name" value="{{ old('mother_name') }}"
+                                <input id="mother_maiden_name" type="text" class="form-control" name="mother_maiden_name" value="{{ old('mother_maiden_name') }}"
                                     required>
 
-                                @if ($errors->has('mother_name'))
+                                @if ($errors->has('mother_maiden_name'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('mother_name') }}</strong>
+                                    <strong>{{ $errors->first('mother_maiden_name') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
 
                         <div class="form-group{{ $errors->has('mother_phone_number') ? ' has-error' : '' }}">
-                            <label for="mother_phone_number" class="col-md-4 control-label">@lang('Mother\'s Phone Number')</label>
+                            <label for="mother_phone_number" class="col-md-4 control-label">* @lang('Mother\'s Phone Number')</label>
 
                             <div class="col-md-6">
                                 <input id="mother_phone_number" type="text" class="form-control" name="mother_phone_number"
@@ -447,65 +531,82 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('mother_national_id') ? ' has-error' : '' }}">
-                            <label for="mother_national_id" class="col-md-4 control-label">@lang('Mother\'s National ID')</label>
+                        <div class="form-group{{ $errors->has('home_tel') ? ' has-error' : '' }}">
+                            <label for="home_tel" class="col-md-4 control-label">* @lang('Home TelephoneNo.')</label>
 
                             <div class="col-md-6">
-                                <input id="mother_national_id" type="text" class="form-control" name="mother_national_id"
-                                    value="{{ old('mother_national_id') }}">
+                                <input id="home_tel" type="text" class="form-control" name="home_tel" value="{{ old('home_tel') }}"
+                                    required>
 
-                                @if ($errors->has('mother_national_id'))
+                                @if ($errors->has('home_tel'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('mother_national_id') }}</strong>
+                                    <strong>{{ $errors->first('home_tel') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('mother_occupation') ? ' has-error' : '' }}">
-                            <label for="mother_occupation" class="col-md-4 control-label">@lang('Mother\'s Occupation')</label>
+                        <div class="form-group{{ $errors->has('school_name') ? ' has-error' : '' }}">
+                            <label for="school_name" class="col-md-4 control-label">* @lang('Previous School Name')</label>
 
                             <div class="col-md-6">
-                                <input id="mother_occupation" type="text" class="form-control" name="mother_occupation"
-                                    value="{{ old('mother_occupation') }}">
+                                <input id="school_name" type="text" class="form-control" name="school_name" value="{{ old('school_name') }}"
+                                    required>
 
-                                @if ($errors->has('mother_occupation'))
+                                @if ($errors->has('school_name'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('mother_occupation') }}</strong>
+                                    <strong>{{ $errors->first('school_name') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('mother_designation') ? ' has-error' : '' }}">
-                            <label for="mother_designation" class="col-md-4 control-label">@lang('Mother\'s Designation')</label>
+                        <div class="form-group{{ $errors->has('school_id') ? ' has-error' : '' }}">
+                            <label for="school_id" class="col-md-4 control-label">* @lang('School Id')</label>
 
                             <div class="col-md-6">
-                                <input id="mother_designation" type="text" class="form-control" name="mother_designation"
-                                    value="{{ old('mother_designation') }}">
+                                <input id="school_id" type="text" class="form-control" name="school_id" value="{{ old('school_id') }}"
+                                    required>
 
-                                @if ($errors->has('mother_designation'))
+                                @if ($errors->has('school_id'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('mother_designation') }}</strong>
+                                    <strong>{{ $errors->first('school_id') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('mother_annual_income') ? ' has-error' : '' }}">
-                            <label for="mother_annual_income" class="col-md-4 control-label">@lang('Mother\'s Annual Income')</label>
+                        <div class="form-group{{ $errors->has('school_address') ? ' has-error' : '' }}">
+                            <label for="school_address" class="col-md-4 control-label">* @lang('School Address')</label>
 
                             <div class="col-md-6">
-                                <input id="mother_annual_income" type="text" class="form-control" name="mother_annual_income"
-                                    value="{{ old('mother_annual_income') }}">
+                                <input id="school_address" type="text" class="form-control" name="school_address" value="{{ old('school_address') }}"
+                                    required>
 
-                                @if ($errors->has('mother_annual_income'))
+                                @if ($errors->has('school_address'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('mother_annual_income') }}</strong>
+                                    <strong>{{ $errors->first('school_address') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('certificate') ? ' has-error' : '' }}">
+                            <label for="certificate" class="col-md-4 control-label">@lang('Do you agree to terms and condition?')</label>
+
+                            <div class="col-md-6">
+                                <div class="radio">
+                                <label><input type="radio" name="certificate" value="Agree" />Agree</label>
+                                </div>
+
+                                @if ($errors->has('certificate'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('certificate') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
                         @endif
 
                         <div class="form-group">
@@ -547,4 +648,6 @@
         $("#registerForm").submit();
     });
 </script>
+
+
 @endsection
