@@ -13,7 +13,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name'     => "Xu Kevin",
+            'last_name'     => "Xu",
+            'given_name'     => "Kevin",
             'email'    => 'kevin.xu@benilde.edu.ph',
             'password' => bcrypt('12345678'),
             'role'     => 'master',
@@ -23,7 +24,6 @@ class UsersTableSeeder extends Seeder
 
        
         factory(User::class, 1)->states('teacher')->create();
-        factory(User::class, 1)->states('admin')->create();
-
+    
     }
 }

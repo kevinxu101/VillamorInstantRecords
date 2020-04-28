@@ -43,25 +43,61 @@ class UserService {
     public function updateStudentInfo($request, $id){
         $info = StudentInfo::firstOrCreate(['student_id' => $id]);
         $info->student_id = $id;
-        $info->session = (!empty($request->session)) ? $request->session : '';
-        $info->version = (!empty($request->version)) ? $request->version : '';
-        $info->group = (!empty($request->group)) ? $request->group : '';
-        $info->birthday = (!empty($request->birthday)) ? $request->birthday : '';
-        $info->religion = (!empty($request->religion)) ? $request->religion : '';
+
+        $info->registration_status = (!empty($request->registration_status)) ? $request->registration_status : '';       
+        $info->grade_level = (!empty($request->grade_level)) ? $request->grade_level : '';       
+        $info->LRN = (!empty($request->LRN)) ? $request->LRN : ''; 
+
+        //$info->requirements()->sync($request->requirements);
+
+        /*$info->requirements = $request->input('requirements');
+        foreach($requirements as $info)
+        {
+        StudentInfo::($info)
+        }*/
+
+        /*foreach($temp as $temporarystring){
+            $tempstring = " " + $temporarystring
+        }
+
+        $info->requirements = (!empty($request->$tempstring )) ? $request->$tempstring  : '';*/  
+
+        $info->requirements = (!empty($request->requirements)) ? $request->requirements : '';       
+        $info->semester = (!empty($request->semester)) ? $request->semester : '';       
+        $info->strand = (!empty($request->strand)) ? $request->strand : '';       
+        $info->group = (!empty($request->group)) ? $request->group : '';    
+
+        $info->barangay = (!empty($request->barangay)) ? $request->barangay : '';       
+        $info->city = (!empty($request->city)) ? $request->city : '';       
+        $info->zipcode = (!empty($request->zipcode)) ? $request->zipcode : '';       
+       
+        
         $info->father_name = (!empty($request->father_name)) ? $request->father_name : '';
-        $info->father_phone_number = (!empty($request->father_phone_number)) ? $request->father_phone_number : '';
-        $info->father_national_id = (!empty($request->father_national_id)) ? $request->father_national_id : '';
-        $info->father_occupation = (!empty($request->father_occupation)) ? $request->father_occupation : '';
-        $info->father_designation = (!empty($request->father_designation)) ? $request->father_designation : '';
-        $info->father_annual_income = (!empty($request->father_annual_income)) ? $request->father_annual_income : '';
-        $info->mother_name = (!empty($request->mother_name)) ? $request->mother_name : '';
+        $info->father_phone_number = (!empty($request->father_phone_number)) ? $request->father_phone_number : '';               
+        $info->mother_maiden_name = (!empty($request->mother_maiden_name)) ? $request->mother_maiden_name : '';
         $info->mother_phone_number = (!empty($request->mother_phone_number)) ? $request->mother_phone_number : '';
-        $info->mother_national_id = (!empty($request->mother_national_id)) ? $request->mother_national_id : '';
-        $info->mother_occupation = (!empty($request->mother_occupation)) ? $request->mother_occupation : '';
-        $info->mother_designation = (!empty($request->mother_designation)) ? $request->mother_designation : '';
-        $info->mother_annual_income = (!empty($request->mother_annual_income)) ? $request->mother_annual_income : '';
+        $info->home_tel = (!empty($request->home_tel)) ? $request->home_tel : '';   
+
+        $info->school_name = (!empty($request->school_name)) ? $request->school_name : '';       
+        $info->school_id = (!empty($request->school_id)) ? $request->school_id : '';       
+        $info->school_address = (!empty($request->school_address)) ? $request->school_address : '';       
+        $info->certificate = (!empty($request->certificate)) ? $request->certificate : '';       
+                    
         $info->user_id = auth()->user()->id;
         $info->save();
+        //$info->religion = (!empty($request->religion)) ? $request->religion : '';
+        //$info->birthday = (!empty($request->birthday)) ? $request->birthday : '';
+        //$info->session = (!empty($request->session)) ? $request->session : '';
+        //$info->version = (!empty($request->version)) ? $request->version : '';
+        //$info->group = (!empty($request->group)) ? $request->group : '';
+        //$info->father_occupation = (!empty($request->father_occupation)) ? $request->father_occupation : '';        
+        //$info->father_annual_income = (!empty($request->father_annual_income)) ? $request->father_annual_income : '';
+        //$info->mother_occupation = (!empty($request->mother_occupation)) ? $request->mother_occupation : '';        
+        //$info->mother_annual_income = (!empty($request->mother_annual_income)) ? $request->mother_annual_income : '';
+        //$info->father_national_id = (!empty($request->father_national_id)) ? $request->father_national_id : '';
+        //$info->father_designation = (!empty($request->father_designation)) ? $request->father_designation : '';
+        //$info->mother_national_id = (!empty($request->mother_national_id)) ? $request->mother_national_id : '';
+        //$info->mother_designation = (!empty($request->mother_designation)) ? $request->mother_designation : '';
     }
 
     public function promoteSectionStudentsView($students, $classes, $section_id){
@@ -122,7 +158,7 @@ class UserService {
                 ->where('code', auth()->user()->school->code)
                 ->student()
                 ->where('active', 1)
-                ->orderBy('name', 'asc')
+                ->orderBy('last_name', 'asc')
                 ->paginate(50);
     }
 
@@ -131,7 +167,7 @@ class UserService {
                 ->where('code', auth()->user()->school->code)
                 ->where('role', 'teacher')
                 ->where('active', 1)
-                ->orderBy('name', 'asc')
+                ->orderBy('last_name', 'asc')
                 ->paginate(50);
     }
 
@@ -140,7 +176,7 @@ class UserService {
                 ->where('code', auth()->user()->school->code)
                 ->where('role', 'accountant')
                 ->where('active', 1)
-                ->orderBy('name', 'asc')
+                ->orderBy('last_name', 'asc')
                 ->paginate(50);
     }
 
@@ -149,7 +185,7 @@ class UserService {
                 ->where('code', auth()->user()->school->code)
                 ->where('role', 'librarian')
                 ->where('active', 1)
-                ->orderBy('name', 'asc')
+                ->orderBy('last_name', 'asc')
                 ->paginate(50);
     }
 
@@ -158,7 +194,7 @@ class UserService {
             ->student()
             ->where('section_id', $section_id)
             ->where('active', 1)
-            ->orderBy('name', 'asc')
+            ->orderBy('last_name', 'asc')
             ->get();
     }
 
@@ -197,7 +233,9 @@ class UserService {
 
     public function storeAdmin($request){
         $tb = new $this->user;
-        $tb->name = $request->name;
+        $tb->last_name = $request->last_name;
+        $tb->given_name = $request->given_name;
+        $tb->middle_name = $request->middle_name;
         $tb->email = $request->email;
         $tb->password = bcrypt($request->password);
         $tb->role = 'admin';
@@ -206,7 +244,7 @@ class UserService {
         $tb->code = session('register_school_code');
         $tb->student_code = session('register_school_id').date('y').substr(number_format(time() * mt_rand(), 0, '', ''), 0, 5);
         $tb->gender = $request->gender;
-        $tb->blood_group = $request->blood_group;
+        //$tb->blood_group = $request->blood_group;
         $tb->nationality = (!empty($request->nationality)) ? $request->nationality : '';
         $tb->phone_number = $request->phone_number;
         $tb->pic_path = (!empty($request->pic_path)) ? $request->pic_path : '';
@@ -217,7 +255,9 @@ class UserService {
 
     public function storeStudent($request){
         $tb = new $this->user;
-        $tb->name = $request->name;
+        $tb->last_name = $request->last_name;
+        $tb->given_name = $request->given_name;
+        $tb->middle_name = $request->middle_name;
         $tb->email = (!empty($request->email)) ? $request->email : '';
         $tb->password = bcrypt($request->password);
         $tb->role = 'student';
@@ -226,11 +266,11 @@ class UserService {
         $tb->code = auth()->user()->code;// School Code
         $tb->student_code = auth()->user()->school_id.date('y').substr(number_format(time() * mt_rand(), 0, '', ''), 0, 5);
         $tb->gender = $request->gender;
-        $tb->blood_group = $request->blood_group;
+        //$tb->blood_group = $request->blood_group;
         $tb->nationality = (!empty($request->nationality)) ? $request->nationality : '';
         $tb->phone_number = $request->phone_number;
         $tb->address = (!empty($request->address)) ? $request->address : '';
-        $tb->about = (!empty($request->about)) ? $request->about : '';
+        //$tb->about = (!empty($request->about)) ? $request->about : '';
         $tb->pic_path = (!empty($request->pic_path)) ? $request->pic_path : '';
         $tb->verified = 1;
         $tb->section_id = $request->section;
@@ -240,7 +280,9 @@ class UserService {
 
     public function storeStaff($request, $role){
         $tb = new $this->user;
-        $tb->name = $request->name;
+        $tb->last_name = $request->last_name;
+        $tb->given_name = $request->given_name;
+        $tb->middle_name = $request->middle_name;
         $tb->email = (!empty($request->email)) ? $request->email : '';
         $tb->password = bcrypt($request->password);
         $tb->role = $role;
@@ -249,7 +291,7 @@ class UserService {
         $tb->code = auth()->user()->code;
         $tb->student_code = auth()->user()->school_id.date('y').substr(number_format(time() * mt_rand(), 0, '', ''), 0, 5);
         $tb->gender = $request->gender;
-        $tb->blood_group = $request->blood_group;
+        //$tb->blood_group = $request->blood_group;
         $tb->nationality = (!empty($request->nationality)) ? $request->nationality : '';
         $tb->phone_number = $request->phone_number;
         $tb->pic_path = (!empty($request->pic_path)) ? $request->pic_path : '';

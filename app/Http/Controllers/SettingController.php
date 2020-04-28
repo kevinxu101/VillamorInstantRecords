@@ -19,7 +19,7 @@ class SettingController extends Controller
         $teachers = User::select('departments.*', 'users.*')
 			->join('departments', 'departments.id', '=', 'users.department_id')
             ->where('role', 'teacher')
-            ->orderBy('name', 'ASC')
+            ->orderBy('last_name', 'ASC')
             ->where('active', 1)
             ->get();
 

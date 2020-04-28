@@ -55,7 +55,7 @@
                                     </i> @lang('Edit')</a>
                             </td>
                             <td>
-                                {{$admin->name}}
+                                {{$admin->last_name}} {{$admin->given_name}}
                             </td>
                             <td>{{$admin->student_code}}</td>
                             <td>{{$admin->email}}</td>

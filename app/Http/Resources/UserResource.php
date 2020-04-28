@@ -16,11 +16,14 @@ class UserResource extends Resource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
+            //'name' => $this->name,
+            'last_name' => $this->last_name,
+            'given_name' => $this->given_name,
+            'middle_name' => $this->middle_name,
             'role' => $this->role,
             'email' => $this->email,
             'address' => $this->address,
-            'about' => $this->about,
+            //'about' => $this->about,
             'pic_path' => (!empty($this->pic_path))?$this->pic_path:null,
             'phone_number' => $this->phone_number,
             'school_code' => $this->code,
@@ -28,7 +31,7 @@ class UserResource extends Resource
             'student_code' => $this->student_code,
             'section' => new SectionResource($this->section),
             'father_name' => $this->father_name,
-            'mother_name' => $this->mother_name,
+            'mother_maiden_name' => $this->mother_name,
         ];
     }
 }

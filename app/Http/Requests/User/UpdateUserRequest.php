@@ -31,7 +31,10 @@ class UpdateUserRequest extends FormRequest
         $rules = [
             'user_id' => 'required|numeric',
             'email' => 'required|email|max:255|' . Rule::unique('users')->ignore($this->get('user_id')),
-            'name' => 'required|string|max:255',
+            //'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'given_name' => 'required|string|max:255',
+            'middle_name' => 'required|string|max:255',
             'phone_number' => 'required|string|' . Rule::unique('users')->ignore($this->get('user_id')),
         ];
 

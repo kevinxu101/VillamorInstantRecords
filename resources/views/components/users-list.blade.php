@@ -20,8 +20,8 @@
             @endif --}}
           @endif
             @if (!Session::has('section-attendance'))
-            <th scope="col">@lang('Session')</th>
-            <th scope="col">@lang('Version')</th>
+            <!--<th scope="col">@lang('Session')</th>
+            <th scope="col">@lang('Version')</th>-->
             <th scope="col">@lang('Class')</th>
             <th scope="col">@lang('Section')</th>
             <th scope="col">@lang('Father')</th>
@@ -43,7 +43,7 @@
       @endforeach
       @if (!Session::has('section-attendance'))
       <th scope="col">@lang('Gender')</th>
-      <th scope="col">@lang('Blood')</th>
+      <!--<th scope="col">@lang('Blood')</th>-->
       <th scope="col">@lang('Phone')</th>
       <th scope="col">@lang('Address')</th>
       @endif
@@ -73,7 +73,7 @@
             @endif
           @endif
           <a href="{{url('user/'.$user->student_code)}}">
-            {{$user->name}}</a>
+            {{$user->last_name}} {{$user->given_name}} {{$user->middle_name}}</a>
           </small></td>
       @if($user->role == 'student')
         @if(Auth::user()->role == 'student' || Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
@@ -83,7 +83,7 @@
           @endif --}}
         @endif
         @if (!Session::has('section-attendance'))
-        <td>
+        <!--<td>
           <small>
             {{$user->studentInfo['session']}}
             @if($user->studentInfo['session'] == now()->year || $user->studentInfo['session'] > now()->year)
@@ -93,7 +93,7 @@
             @endif
           </small>
         </td>
-        <td><small>{{ucfirst($user->studentInfo['version'])}}</small></td>
+        <td><small>{{ucfirst($user->studentInfo['version'])}}</small></td>-->
         <td><small>{{$user->section->class->class_number}} {{!empty($user->group)? '- '.$user->group:''}}</small></td>
         <td style="white-space: nowrap;"><small>{{$user->section->section_number}}
           {{-- @if(Auth::user()->role == 'student' || Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
@@ -102,7 +102,7 @@
           </small>
         </td>
         <td><small>{{$user->studentInfo['father_name']}}</small></td>
-        <td><small>{{$user->studentInfo['mother_name']}}</small></td>
+        <td><small>{{$user->studentInfo['mother_maiden_name']}}</small></td>
         @endif
       @elseif($user->role == 'teacher')
         @if (!Session::has('section-attendance'))
@@ -126,7 +126,7 @@
       @endif
       @if (!Session::has('section-attendance'))
       <td><small>{{ucfirst($user->gender)}}</small></td>
-      <td><small>{{$user->blood_group}}</small></td>
+      <!--<td><small>{{$user->blood_group}}</small></td>-->
       <td><small>{{$user->phone_number}}</small></td>
       <td><small>{{$user->address}}</small></td>
       @endif

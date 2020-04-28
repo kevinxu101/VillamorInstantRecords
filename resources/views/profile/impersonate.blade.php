@@ -20,7 +20,8 @@
                     {{ csrf_field() }}
                     <tr>
                         <td>{{ $other_user->id }}</td>
-                        <td>{{ $other_user->name }}</td>
+                        <td>{{$other_user->last_name}} {{$other_user->given_name}}</td>
+                        
                         <td>{{ $other_user->role }}</td>
                         <td>
                             <input type="hidden" name="id" value="{{$other_user->id}}" />

@@ -19,7 +19,7 @@
     @endif
   </div>
   <div class="col-md-10" id="main-container">
-    <h3>{{$user->name}} <span class="label label-danger">{{ucfirst($user->role)}}</span> <span class="label label-primary">{{ucfirst($user->gender)}}</span>
+    <h3>{{$user->last_name}} {{$user->given_name}} {{$user->middle_name}}   <span class="label label-danger">{{ucfirst($user->role)}}</span> <span class="label label-primary">{{ucfirst($user->gender)}}</span>
       @if ($user->role == 'teacher' && $user->section_id > 0)
         <small>@lang('Class Teacher of Section'): <span class="label label-info">{{ucfirst($user->section->section_number)}}</span></small>
       @endif
@@ -51,7 +51,7 @@
                   <td>@lang('Student ID'):</td>
                   <td>{{$user->student_code}}</td>
                   <td>@lang('Student\'s Name'):</td>
-                  <td>{{$user->name}}</td>
+                  <td>{{$user->last_name}} {{$user->given_name}} {{$user->middle_name}}</td>
                 </tr>
                 <tr>
                   <td>@lang('Class'):</td>
@@ -60,14 +60,14 @@
                   <td>{{$user->section->section_number}}</td>
                 </tr>
                 <tr>
-                  <td>@lang('Session'):</td>
+                  <!--<td>@lang('Session'):</td>
                   <td>{{$user->studentInfo['session']}}</td>
                   <td>@lang('Version'):</td>
-                  <td>{{$user->studentInfo['version']}}</td>
+                  <td>{{$user->studentInfo['version']}}</td>-->
                 </tr>
                 <tr>
-                  <td>@lang('Group'):</td>
-                  <td>{{$user->studentInfo['group']}}</td>
+                  <!--<td>@lang('Group'):</td>
+                  <td>{{$user->studentInfo['group']}}</td>-->
                   <td colspan="2"></td>
                 </tr>
               </table>
@@ -99,26 +99,26 @@
                   <td>{{$user->phone_number}}</td>
                 </tr>
                 <tr>
-                  <td>@lang('Gender'):</td>
-                  <td>{{$user->gender}}</td>
-                  <td>@lang('Blood Group'):</td>
-                  <td>{{$user->blood_group}}</td>
+                  <!--<td>@lang('Gender'):</td>
+                  <td>{{$user->gender}}</td>-->
+                  <!--<td>@lang('Blood Group'):</td>
+                  <td>{{$user->blood_group}}</td>-->
                 </tr>
                 <tr>
                   <td>@lang('Nationality'):</td>
                   <td>{{$user->nationality}}</td>
-                  <td>@lang('Birthday'):</td>
-                  <td>{{Carbon\Carbon::parse($user->birthday)->format('d/m/Y')}}</td>
+                  <!--<td>@lang('Birthday'):</td>
+                  <td>{{Carbon\Carbon::parse($user->birthday)->format('d/m/Y')}}</td>-->
                 </tr>
                 <tr>
-                  <td>@lang('Religion'):</td>
-                  <td>{{$user->studentInfo['religion']}}</td>
+                  <!--<td>@lang('Religion'):</td>
+                  <td>{{$user->studentInfo['religion']}}</td>-->
                   <td>@lang('Father Name'):</td>
                   <td>{{$user->studentInfo['father_name']}}</td>
                 </tr>
                 <tr>
                   <td>@lang('Mother Name'):</td>
-                  <td>{{$user->studentInfo['mother_name']}}</td>
+                  <td>{{$user->studentInfo['mother_maiden_name']}}</td>
                   <td>@lang('Address'):</td>
                   <td>{{$user->address}}</td>
                 </tr>
@@ -129,34 +129,34 @@
                   <td>{{$user->studentInfo['father_phone_number']}}</td>
                 </tr>
                 <tr>
-                  <td>@lang('Father\'s National ID'):</td>
+                  <!--<td>@lang('Father\'s National ID'):</td>
                   <td>{{$user->studentInfo['father_national_id']}}</td>
                   <td>@lang('Father\'s Occupation'):</td>
-                  <td>{{$user->studentInfo['father_occupation']}}</td>
+                  <td>{{$user->studentInfo['father_occupation']}}</td>-->
                 </tr>
                 <tr>
-                  <td>@lang('Father\'s Designation'):</td>
+                  <!--<td>@lang('Father\'s Designation'):</td>
                   <td>{{$user->studentInfo['father_designation']}}</td>
                   <td>@lang('Father\'s Annual Income'):</td>
-                  <td>{{$user->studentInfo['father_annual_income']}}</td>
+                  <td>{{$user->studentInfo['father_annual_income']}}</td>-->
                 </tr>
                 <tr>
                   <td>@lang('Mother\'s Phone Number'):</td>
                   <td>{{$user->studentInfo['mother_phone_number']}}</td>
-                  <td>@lang('Mother\'s National ID'):</td>
-                  <td>{{$user->studentInfo['mother_national_id']}}</td>
+                  <!--<td>@lang('Mother\'s National ID'):</td>
+                  <td>{{$user->studentInfo['mother_national_id']}}</td>-->
                 </tr>
                 <tr>
-                  <td>@lang('Mother\'s Occupation'):</td>
+                  <!--<td>@lang('Mother\'s Occupation'):</td>
                   <td>{{$user->studentInfo['mother_occupation']}}</td>
                   <td>@lang('Mother\'s Designation'):</td>
-                  <td>{{$user->studentInfo['mother_designation']}}</td>
+                  <td>{{$user->studentInfo['mother_designation']}}</td>-->
                 </tr>
                 <tr>
-                  <td>@lang('Mother\'s Annual Income'):</td>
+                  <!--<td>@lang('Mother\'s Annual Income'):</td>
                   <td>{{$user->studentInfo['mother_annual_income']}}</td>
                   <td>@lang('About'):</td>
-                  <td>{{$user->about}}</td>
+                  <td>{{$user->about}}</td>-->
                 </tr>
               </table>
             </div>
@@ -188,13 +188,15 @@
           @if($user->role == "student")
           <td><b>@lang('Code'):</b></td>
           <td>{{$user->student_code}}</td>
-          <td><b>@lang('Session'):</b></td>
-          <td>{{$user->studentInfo['session']}}</td>
+          <td><b>@lang('Email'):</b></td>
+          <td>{{$user->email}}</td>
+          <!--<td><b>@lang('Session'):</b></td>
+          <td>{{$user->studentInfo['session']}}</td>-->
           @else
           <td><b>@lang('Code'):</b></td>
           <td>{{$user->student_code}}</td>
-          <td><b>@lang('About'):</b></td>
-          <td>{{$user->about}}</td>
+          <!--<td><b>@lang('About'):</b></td>
+          <td>{{$user->about}}</td>-->
           @endif
         </tr>
         @if($user->role == "student")
@@ -204,73 +206,87 @@
           <td><b>@lang('Section'):</b></td>
           <td>{{$user->section->section_number}}</td>
         </tr>
+
         <tr>
-          <td><b>@lang('Version'):</b></td>
-          <td>{{$user->studentInfo['version']}}</td>
-          <td><b>@lang('Blood Group'):</b></td>
-          <td>{{$user->blood_group}}</td>
+          <td><b>@lang('Address'):</b></td>
+          <td>{{$user->address}}</td>
+          <td><b>@lang('City/Municipality'):</b></td>
+          <td>{{$user->studentInfo['city']}}</td>
+
         </tr>
         <tr>
-          <td><b>@lang('Group'):</b></td>
-          <td>{{$user->studentInfo['group']}}</td>
-          <td><b>@lang('Birthday'):</b></td>
-          <td>{{Carbon\Carbon::parse($user->birthday)->format('d/m/Y')}}</td>
+          <td><b>@lang('Phone Number'):</b></td>
+          <td>{{$user->phone_number}}</td>
+          <td><b>@lang('Home Telephone'):</b></td>
+          <td>{{$user->studentInfo['home_tel']}}</td>
+          <!--<td><b>@lang('Birthday'):</b></td>
+          <td>{{Carbon\Carbon::parse($user->birthday)->format('d/m/Y')}}</td>-->
         </tr>
-        @endif
+
+        <tr>
+          <td><b>@lang('Barangay'):</b></td>
+          <td>{{$user->studentInfo['barangay']}}</td>
+          <td><b>@lang('Zip Code'):</b></td>
+          <td>{{$user->studentInfo['zipcode']}}</td>
+        </tr>
+
         <tr>
           <td><b>@lang('Nationality'):</b></td>
           <td>{{$user->nationality}}</td>
-          <td><b>@lang('Religion'):</b></td>
-          <td>{{$user->studentInfo['religion']}}</td>
-        </tr>
-        @if($user->role == "student")
+          <td><b>@lang('Group'):</b></td>
+          <td>{{$user->studentInfo['group']}}</td>
+        </tr>          
+        @endif
+        
+        <@if($user->role == "student")
         <tr>
           <td><b>@lang('Father Name'):</b></td>
           <td>{{$user->studentInfo['father_name']}}</td>
           <td><b>@lang('Mother Name'):</b></td>
-          <td>{{$user->studentInfo['mother_name']}}</td>
+          <td>{{$user->studentInfo['mother_maiden_name']}}</td>
         </tr>
-        @endif
-        <tr>
-          <td><b>@lang('Address'):</b></td>
-          <td>{{$user->address}}</td>
-          <td><b>@lang('Phone Number'):</b></td>
-          <td>{{$user->phone_number}}</td>
-        </tr>
-        @if($user->role == "student")
+
         <tr>
           <td><b>@lang('Father\'s Phone Number'):</b></td>
           <td>{{$user->studentInfo['father_phone_number']}}</td>
-          <td><b>@lang('Father\'s National ID'):</b></td>
-          <td>{{$user->studentInfo['father_national_id']}}</td>
+          <td><b>@lang('Mother\'s Phone Number'):</b></td>
+          <td>{{$user->studentInfo['mother_phone_number']}}</td>         
+        </tr>
+
+         @endif
+        
+        @if($user->role == "student")
+        <tr>
+          
+          <!--<td><b>@lang('Father\'s National ID'):</b></td>
+          <td>{{$user->studentInfo['father_national_id']}}</td>-->
         </tr>
         <tr>
-          <td><b>@lang('Father\'s Occupation'):</b></td>
+          <!--<td><b>@lang('Father\'s Occupation'):</b></td>
           <td>{{$user->studentInfo['father_occupation']}}</td>
           <td><b>@lang('Father\'s Designation'):</b></td>
-          <td>{{$user->studentInfo['father_designation']}}</td>
+          <td>{{$user->studentInfo['father_designation']}}</td>-->
         </tr>
         <tr>
-          <td><b>@lang('Father\'s Annual Income'):</b></td>
-          <td>{{$user->studentInfo['father_annual_income']}}</td>
-          <td><b>@lang('Mother\'s Phone Number'):</b></td>
-          <td>{{$user->studentInfo['mother_phone_number']}}</td>
+          <!--<td><b>@lang('Father\'s Annual Income'):</b></td>
+          <td>{{$user->studentInfo['father_annual_income']}}</td>-->
+         
         </tr>
         <tr>
-          <td><b>@lang('Mother\'s National ID'):</b></td>
+          <!--<td><b>@lang('Mother\'s National ID'):</b></td>
           <td>{{$user->studentInfo['mother_national_id']}}</td>
           <td><b>@lang('Mother\'s Occupation'):</b></td>
-          <td>{{$user->studentInfo['mother_occupation']}}</td>
+          <td>{{$user->studentInfo['mother_occupation']}}</td>-->
         </tr>
         <tr>
-          <td><b>@lang('Mother\'s Designation'):</b></td>
+          <!--<td><b>@lang('Mother\'s Designation'):</b></td>
           <td>{{$user->studentInfo['mother_designation']}}</td>
           <td><b>@lang('Mother\'s Annual Income'):</b></td>
-          <td>{{$user->studentInfo['mother_annual_income']}}</td>
+          <td>{{$user->studentInfo['mother_annual_income']}}</td>-->
         </tr>
         <tr>
-          <td><b>@lang('About'):</b></td>
-          <td colspan="3">{{$user->about}}</td>
+          <!--<td><b>@lang('About'):</b></td>
+          <td colspan="3">{{$user->about}}</td>-->
         </tr>
         @endif
       </tbody>
